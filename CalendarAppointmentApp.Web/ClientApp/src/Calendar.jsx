@@ -225,7 +225,7 @@ const Calendar = () => {
             </div>
             <div className="calendar-day-names">
                 {getDayNames().map((dayName, index) => (
-                    <div key={index} className="calendar-day-names">
+                    <div key={index} className="calendar-day-name">
                         <p>{dayName}</p>
                     </div>
                 ))}

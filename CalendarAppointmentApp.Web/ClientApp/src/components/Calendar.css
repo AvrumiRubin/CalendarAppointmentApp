@@ -1,7 +1,10 @@
 .calendar {
+  width: 1050px;
   margin-top: 20px;
   align-content: center;
   justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
 
   /* Your calendar container styles */
 }
@@ -13,10 +16,16 @@
   /* Your calendar header styles */
 }
 
+.calendar-day-names {
+  display: flex;
+  width: 100%;
+}
+
 .calendar-body {
 
   display: flex;
   justify-content: center;
+  width: 100%;
   /* Your calendar body styles */
 }
 
@@ -25,14 +34,13 @@
     background-color: #4681f4;
   }
 
-  margin-left: 50px;
   display: flex;
   flex-direction: row;  /* Change direction to right-to-left */
   flex-wrap: wrap;
 
 }
 
-.calendar-day-names {
+/* .calendar-day-names {
   margin-left: 160px;
   margin-right: -50px;
   width: calc(290% /4.5);
@@ -40,6 +48,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: bold;
+  font-size: larger;
+} */
+
+.calendar-day-name {
+  width: calc(100%/7);
+  display:flex;
+  justify-content: center;
+  height: 40px;
   font-weight: bold;
   font-size: larger;
 }
