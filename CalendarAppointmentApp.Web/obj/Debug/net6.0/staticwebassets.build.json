@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "yCNO4N2cKOq3et/C1WlFlHCjgr2LX/PivJhyeoqQPkM=",
+  "Source": "CalendarAppointmentApp.Web",
+  "BasePath": "_content/CalendarAppointmentApp.Web",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

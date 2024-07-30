@@ -1,0 +1,8 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "http://localhost:3000",
+"LaunchCommand": "npm run dev",
+"WorkingDirectory": "C:\\Users\\Rubin Family\\source\\repos\\CalendarAppointmentApp\\CalendarAppointmentApp.Web\\ClientApp\\",
+"MaxTimeoutInSeconds": "120"
+}
+}

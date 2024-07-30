@@ -1,0 +1,14 @@
+C:\Users\Rubin Family\source\repos\CalendarAppointmentApp\CalendarAppointmentApp.Data\bin\Debug\net6.0\CalendarAppointmentApp.Data.deps.json
+C:\Users\Rubin Family\source\repos\CalendarAppointmentApp\CalendarAppointmentApp.Data\bin\Debug\net6.0\CalendarAppointmentApp.Data.runtimeconfig.json
+C:\Users\Rubin Family\source\repos\CalendarAppointmentApp\CalendarAppointmentApp.Data\bin\Debug\net6.0\CalendarAppointmentApp.Data.dll
+C:\Users\Rubin Family\source\repos\CalendarAppointmentApp\CalendarAppointmentApp.Data\bin\Debug\net6.0\CalendarAppointmentApp.Data.pdb
+C:\Users\Rubin Family\source\repos\CalendarAppointmentApp\CalendarAppointmentApp.Data\obj\Debug\net6.0\CalendarAppointmentApp.Data.csproj.AssemblyReference.cache
+C:\Users\Rubin Family\source\repos\CalendarAppointmentApp\CalendarAppointmentApp.Data\obj\Debug\net6.0\CalendarAppointmentApp.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Rubin Family\source\repos\CalendarAppointmentApp\CalendarAppointmentApp.Data\obj\Debug\net6.0\CalendarAppointmentApp.Data.AssemblyInfoInputs.cache
+C:\Users\Rubin Family\source\repos\CalendarAppointmentApp\CalendarAppointmentApp.Data\obj\Debug\net6.0\CalendarAppointmentApp.Data.AssemblyInfo.cs
+C:\Users\Rubin Family\source\repos\CalendarAppointmentApp\CalendarAppointmentApp.Data\obj\Debug\net6.0\CalendarAppointmentApp.Data.csproj.CoreCompileInputs.cache
+C:\Users\Rubin Family\source\repos\CalendarAppointmentApp\CalendarAppointmentApp.Data\obj\Debug\net6.0\CalendarAppointmentApp.Data.dll
+C:\Users\Rubin Family\source\repos\CalendarAppointmentApp\CalendarAppointmentApp.Data\obj\Debug\net6.0\refint\CalendarAppointmentApp.Data.dll
+C:\Users\Rubin Family\source\repos\CalendarAppointmentApp\CalendarAppointmentApp.Data\obj\Debug\net6.0\CalendarAppointmentApp.Data.pdb
+C:\Users\Rubin Family\source\repos\CalendarAppointmentApp\CalendarAppointmentApp.Data\obj\Debug\net6.0\CalendarAppointmentApp.Data.genruntimeconfig.cache
+C:\Users\Rubin Family\source\repos\CalendarAppointmentApp\CalendarAppointmentApp.Data\obj\Debug\net6.0\ref\CalendarAppointmentApp.Data.dll

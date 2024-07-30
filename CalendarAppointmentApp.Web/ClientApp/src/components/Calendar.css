@@ -1,0 +1,81 @@
+.calendar {
+  margin-top: 20px;
+  align-content: center;
+  justify-content: center;
+
+  /* Your calendar container styles */
+}
+
+.calendar-header {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  /* Your calendar header styles */
+}
+
+.calendar-body {
+
+  display: flex;
+  justify-content: center;
+  /* Your calendar body styles */
+}
+
+.calendar-days {
+  :hover {
+    background-color: #4681f4;
+  }
+
+  margin-left: 50px;
+  display: flex;
+  flex-direction: row;  /* Change direction to right-to-left */
+  flex-wrap: wrap;
+
+}
+
+.calendar-day-names {
+  margin-left: 160px;
+  margin-right: -50px;
+  width: calc(290% /4.5);
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: larger;
+}
+
+
+
+.calendar-day {
+  width: calc(100%/7);
+  height: 150px;
+  border: 2px solid #ccc;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  cursor: pointer;
+  font-size: xx-large;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  position: relative;
+
+}
+
+.appointment-banner {
+  position: absolute;  /* Position the banner absolutely */
+  bottom: 0;
+  left: 0;  /* Align the banner to the left of the calendar day box */
+  width: 100%;  /* Make the banner span the entire width of the calendar day box */
+  background-color: red;
+  height: 40px;  /* Adjust the height of the banner */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(0, 0, 0);  /* Set the text color to white */
+  font-weight: bold;  /* Set the font weight to bold */
+  font-size: large;
+  cursor: pointer;
+}
+
+.calendar-day.today {
+  background-color: lightblue;
+}
