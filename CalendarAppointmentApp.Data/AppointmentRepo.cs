@@ -28,13 +28,6 @@ namespace CalendarAppointmentApp.Data
         {
             using var context = new AppointmentContext(_connectionString);
             return context.Appointments.Include(p => p.Person).ToList();
-        }
-
-        public List<Calculations> GetMonthlyAmount()
-        {
-            using var context = new AppointmentContext(_connectionString);
-            return context.Calculations.FromSqlRaw("EXEC dbo.CalculateMonthlyAmount").ToList();           
-        }
-
+        }        
     }
 }

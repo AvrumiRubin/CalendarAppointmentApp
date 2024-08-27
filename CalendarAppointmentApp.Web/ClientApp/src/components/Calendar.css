@@ -22,7 +22,6 @@
 }
 
 .calendar-body {
-
   display: flex;
   justify-content: center;
   width: 100%;
@@ -34,12 +33,17 @@
     background-color: #4681f4;
   }
 
+  :has(:hover) {
+    background-color: #fff;
+  }
+
   display: flex;
   flex-direction: row;  /* Change direction to right-to-left */
   flex-wrap: wrap;
 
 }
 
+/* Old code - remeberance for the churban beis hamikdash */
 /* .calendar-day-names {
   margin-left: 160px;
   margin-right: -50px;
@@ -78,6 +82,10 @@
 }
 
 .appointment-banner {
+  :hover {
+    background-color: green;
+  }
+
   position: absolute;  /* Position the banner absolutely */
   bottom: 0;
   left: 0;  /* Align the banner to the left of the calendar day box */
@@ -91,6 +99,8 @@
   font-weight: bold;  /* Set the font weight to bold */
   font-size: large;
   cursor: pointer;
+
+  
 }
 
 .calendar-day.today {

@@ -177,7 +177,7 @@ const Calendar = () => {
                         {day.getDate()}
                         {hasAppointment(day) && (
                             <div className='appointment-banner' onClick={(e) => { e.stopPropagation(); handleBannerOpen(day); }}>
-                                <a href='https://google.com' onClick={(e) => e.preventDefault()}>{getAppointmentName(day)}</a>
+                                <a href='' onClick={(e) => e.preventDefault()}>{getAppointmentName(day)}</a>
                             </div>
                         )}
                     </div>

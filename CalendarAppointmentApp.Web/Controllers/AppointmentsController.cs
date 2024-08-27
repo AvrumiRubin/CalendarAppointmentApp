@@ -29,15 +29,6 @@ namespace CalendarAppointmentApp.Web.Controllers
         {
             var repo = new AppointmentRepo(_connectionString);
             return repo.GetAppointments();
-        }
-
-        [HttpGet]
-        [Route("getmonthlyamount")]
-        public List<Calculations> GetMonthlyAmount()
-        {
-            var repo = new AppointmentRepo(_connectionString);
-            return repo.GetMonthlyAmount();
-        }
-         
+        }        
     }
 }
