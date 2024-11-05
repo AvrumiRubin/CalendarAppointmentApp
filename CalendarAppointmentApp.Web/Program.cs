@@ -15,6 +15,7 @@ namespace CalendarAppointmentApp.Web
                 AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
 
             var app = builder.Build();

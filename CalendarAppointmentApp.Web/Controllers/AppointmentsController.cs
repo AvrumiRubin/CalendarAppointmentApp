@@ -1,4 +1,6 @@
 ﻿using CalendarAppointmentApp.Data;
+using CalendarAppointmentApp.Data.Migrations;
+using CalendarAppointmentApp.Web.Pages.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,6 +31,38 @@ namespace CalendarAppointmentApp.Web.Controllers
         {
             var repo = new AppointmentRepo(_connectionString);
             return repo.GetAppointments();
-        }        
+        }
+
+        [HttpPost]
+        [Route("updateappointment")]
+        public void Update(Appointment appointment)
+        {
+            var repo = new AppointmentRepo(_connectionString);
+            repo.UpdateAppointment(appointment);
+        }
+
+        [HttpPost]
+        [Route("deleteappointment")]
+        public void Delete(DeleteAppointmentViewModel vm)
+        {
+            var repo = new AppointmentRepo(_connectionString);
+            repo.DeleteAppointment(vm.Id);
+        }
+
+        [HttpGet]
+        [Route("getlistdeposittype")]
+        public List<string> GetListDepositTypes()
+        {
+            var repo = new AppointmentRepo(_connectionString);
+            return repo.GetListDepositType();
+        }
+
+        [HttpGet]
+        [Route("getlistpaymenttype")]
+        public List<string> GetListPaymentTypes()
+        {
+            var repo = new AppointmentRepo(_connectionString);
+            return repo.GetListPaymentType();
+        }
     }
 }

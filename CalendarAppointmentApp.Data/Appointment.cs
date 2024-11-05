@@ -14,6 +14,10 @@ namespace CalendarAppointmentApp.Data
         public int Faces { get; set; }
         public decimal Amount { get; set; }
         public decimal Deposit { get; set; }
+        public Status Status { get; set; }
+        public PaymentType PaymentType { get; set; }
+        public DepositType DepositType { get; set; }
+        public DateTime DepositDate { get; set; }
 
         public Person Person { get; set; }
     }

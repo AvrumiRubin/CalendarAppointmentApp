@@ -55,13 +55,13 @@ namespace CalendarAppointmentApp.Web.Controllers
             return repo.GetCurrentMonthsAppointments();
         }
 
-        [HttpGet]
-        [Route("monthlydeposits")]
-        public List<Dashboard.MonthlyDeposits> GetMonthlyFaces()
-        {
-            var repo = new DashboardRepo(_connectionString);
-            return repo.GetMonthlyDeposits();
-        }
+        //[HttpGet]
+        //[Route("monthlydepositss")]
+        //public List<Dashboard.MonthlyDeposits> GetMonthlyFaces()
+        //{
+        //    var repo = new DashboardRepo(_connectionString);
+        //    return repo.GetMonthlyDeposits();
+        //}
 
         [HttpGet]
         [Route("facesperappointment")]
@@ -69,6 +69,14 @@ namespace CalendarAppointmentApp.Web.Controllers
         {
             var repo = new DashboardRepo(_connectionString);
             return repo.GetMonthlyFacesPerAppointments();
+        }
+
+        [HttpGet]
+        [Route("monthlydeposits")]
+        public decimal GetMonthlyDeposits()
+        {
+            var repo = new DashboardApi(_connectionString);
+            return repo.GetTotalDeposits();           
         }
     }
 }

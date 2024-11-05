@@ -2,8 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import './components/Calendar.css'; // Import your CSS file for styling
 import { Autocomplete, Button, Dialog, DialogActions, DialogContent, DialogTitle, InputAdornment, TextField } from '@mui/material';
-import { getTime } from 'date-fns';
-import { AccessTimeTwoTone, AccountCircle, AttachMoney } from '@mui/icons-material';
+import { AttachMoney, TextFieldsRounded } from '@mui/icons-material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -20,6 +19,9 @@ const Calendar = () => {
     const [faces, setFaces] = useState('');
     const [amount, setAmount] = useState('');
     const [deposit, setDeposit] = useState('');
+    const [depositType, setDepositType] = useState('');
+    const [depositDate, setDepositDate] = useState('');
+    const [listDepositTypes, setListDepositTypes] = useState([]);
     const [editingSourceId, setEditingSourceId] = useState(null);
     const [isNewClient, setIsNewClient] = useState(false);
     const [nameValue, setNameValue] = useState(null);
@@ -35,6 +37,7 @@ const Calendar = () => {
         }
         getNames();
         getAppointments();
+        getListDepositTypes();
     }, []);
 
     const getAppointments = async () => {
@@ -42,12 +45,17 @@ const Calendar = () => {
         setAppointments(data);
     }
 
+    const getListDepositTypes = async () => {
+        const {data} = await axios.get('/api/appointments/getlistdeposittype');
+        setListDepositTypes(data);
+    }
+
 
     const handleClickOpen = () => {
         setOpen(true);
     };
 
-    const handeleClose = () => {
+    const handleClose = () => {
         setTime('');
         setFaces('');
         setAmount('');
@@ -55,6 +63,7 @@ const Calendar = () => {
         setOpen(false);
         setNameValue(null);
         setIsNewClient(false);
+        setDepositDate('');
     };
 
     const handleBannerOpen = (date) => {
@@ -95,6 +104,7 @@ const Calendar = () => {
         }
     }
 
+
     const handleAddAppointment = async () => {
         const x = updateDateWithTime(selectedDate, time);
         await axios.post('/api/appointments/addappointment', {
@@ -102,10 +112,12 @@ const Calendar = () => {
             dateTime: x,
             faces: faces,
             amount: amount,
-            deposit: deposit
+            deposit: deposit,
+            depositType: depositType,
+            depositDate: depositDate
         });
         getAppointments();
-        handeleClose();
+        handleClose();
     };
 
 
@@ -118,20 +130,12 @@ const Calendar = () => {
         setSelectedDate(date);
         handleClickOpen(true);
         //updateDateWithTime();
-
-
-        // You can add your logic here for handling the click event
     };
 
     const hasAppointment = (date) => {
         return appointments.some(appointment => new Date(appointment.dateTime).toDateString() === date.toDateString());
     };
 
-    // const hi = () => {
-    //     const name = names.phoneNumber;
-    //     console.log(name);
-    //     //return 'hi!'
-    // }
 
 
     const getAppointmentName = (date) => {
@@ -238,9 +242,9 @@ const Calendar = () => {
 
             <Dialog
                 open={open}
-                onClose={handeleClose}
+                onClose={handleClose}
                 fullWidth maxWidth="md">
-                <DialogTitle>{editingSourceId ? 'Edit Appointment' : 'Add Appointment'} - {selectedDate.toLocaleString('default', { day: '2-digit', month: 'long', year: 'numeric' })} </DialogTitle>
+                <DialogTitle> Add Appointment - {selectedDate.toLocaleString('default', { day: '2-digit', month: 'long', year: 'numeric' })} </DialogTitle>
                 <DialogContent>
 
                     {isNewClient && (
@@ -274,9 +278,20 @@ const Calendar = () => {
                     <br></br> <br></br>
                     <TextField InputProps={{ startAdornment: (<InputAdornment position='start'><AttachMoney /></InputAdornment>) }} autoFocus margin='dense' label="Deposit" type='number'
                         value={deposit} onChange={(e) => setDeposit(e.target.value)} />
+                        <br></br> <br></br>
+                        <Autocomplete
+                        options={listDepositTypes}
+                        getOptionLabel={(option) => option}
+                        autoFocus margin='dense'                        
+                        onChange={(e, value) => setDepositType(value)}
+                        renderInput={(params) => (<TextField {...params} label="Deposit Type" variant="outlined"></TextField>)}
+                        />
+                        <br></br> 
+                        <TextField autoFocus margin='dense' label='Deposit Date' type='datetime-local'
+                            value={depositDate} onChange={(e) => setDepositDate(e.target.value)} />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handeleClose} color='primary' variant='outlined'>
+                    <Button onClick={handleClose} color='primary' variant='outlined'>
                         Cancel
                     </Button>
                     <Button onClick={handleAddAppointment} color='primary' variant='contained' >

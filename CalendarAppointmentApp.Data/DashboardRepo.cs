@@ -1,12 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CalendarAppointmentApp.Data
 {
+    [NotMapped]
     public class DashboardRepo
     {
         private readonly string _connectionString;
@@ -48,11 +50,11 @@ namespace CalendarAppointmentApp.Data
             return context.Set<Dashboard.GetCurrentMonthsAppointments>().FromSqlRaw("EXEC dbo.GetCurrentMonthlyAppointments").ToList();
         }
 
-        public List<Dashboard.MonthlyDeposits> GetMonthlyDeposits()
-        {
-            using var context = new AppointmentContext(_connectionString);
-            return context.Set<Dashboard.MonthlyDeposits>().FromSqlRaw("EXEC dbo.DepositsReceivedThisMonth").ToList();
-        }
+        //public List<Dashboard.MonthlyDeposits> GetMonthlyDeposits()
+        //{
+        //    using var context = new AppointmentContext(_connectionString);
+        //    return context.Set<Dashboard.MonthlyDeposits>().FromSqlRaw("EXEC dbo.DepositsReceivedThisMonth").ToList();
+        //}
 
         public List<Dashboard.MonthlyFacesPerAppointment> GetMonthlyFacesPerAppointments()
         {

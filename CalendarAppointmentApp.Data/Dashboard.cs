@@ -1,12 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CalendarAppointmentApp.Data
 {
+    [NotMapped]
     public class Dashboard
     {
         
@@ -37,11 +39,6 @@ namespace CalendarAppointmentApp.Data
         public class GetCurrentMonthsAppointments
         {
             public int MonthlyAppointments { get; set; }
-        }
-
-        public class MonthlyDeposits
-        {
-            public decimal Deposits { get; set; }
         }
 
         public class MonthlyFacesPerAppointment

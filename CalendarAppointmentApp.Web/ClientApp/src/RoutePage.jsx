@@ -5,8 +5,8 @@ import Layout from "./components/Layout";
 import Calendar from "./Calendar";
 import Appointments from "./Appointments";
 import Clients from "./Clients";
-import Calculations from "./Calculations";
 import Dashboard from "./Dashboard";
+import Records from "./Records";
 
 
 const RoutePage = () => {
@@ -20,8 +20,8 @@ const RoutePage = () => {
                     <Route path="/calendar" element={<Calendar />} />
                     <Route path="/appointments" element={<Appointments />} />
                     <Route path="/clients" element={<Clients />} />
-                    <Route path="/calculations" element={<Calculations />} />
                     <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/records" element={<Records />} />
                 </Routes>
             </Layout>
         </Router>

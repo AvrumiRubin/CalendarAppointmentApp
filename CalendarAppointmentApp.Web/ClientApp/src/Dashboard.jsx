@@ -6,6 +6,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 import { PieChart, pieArcLabelClasses } from '@mui/x-charts/PieChart';
 import axios from 'axios';
 import NorthRoundedIcon from '@mui/icons-material/NorthRounded';
+import { Gauge, gaugeClasses } from '@mui/x-charts';
 
 
 
@@ -50,7 +51,7 @@ export default function Dashboard() {
 
     const getCurrentMonthlyDeposits = async () => {
         const { data } = await axios.get('/api/dashboard/monthlydeposits')
-        setDeposits(data[0].deposits);
+        setDeposits(data);
     }
 
     const getCurrentMonthlyFacesPerAppointment = async () => {
@@ -91,12 +92,6 @@ export default function Dashboard() {
 
     };
 
-    const pieData1 = [
-        { label: 'Group A', value: 400, color: '#0088FE' },
-        { label: 'Group B', value: 300, color: '#00C49F' },
-        { label: 'Group C', value: 300, color: '#FFBB28' },
-        { label: 'Group D', value: 200, color: '#FF8042' },
-    ];
 
     const pieData = facesPerAppointment.map((i, faces) => {
         const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
@@ -112,7 +107,7 @@ export default function Dashboard() {
         margin: { right: 5 },
         width: 300,
         height: 300,
-        legend: { hidden: true,},
+        legend: { hidden: true, },
     };
     const TOTAL = pieData.map((i) => i.value).reduce((a, b) => a + b, 0);
 
@@ -122,11 +117,11 @@ export default function Dashboard() {
     };
 
 
-    return (
-        <Container sx={{ display: 'flex', flexDirection: 'column', mt: 1 }}>
+    return ( 
+        <Container sx={{ display: 'flex', flexDirection: 'column', mt: 1}}>
             <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
                 <Box p={2}>
-                    <Card sx={{ borderRadius: 10, display: 'flex', flexDirection: 'column', width: 300, height: 200 }} elevation={3}>
+                    <Card sx={{ borderRadius: 10, display: 'flex', flexDirection: 'column', width: 300, height: 200, marginLeft: -35 }} elevation={3}>
                         <CardContent sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                                 <Typography variant='h6' color="text.secondary" gutterBottom>
@@ -157,6 +152,11 @@ export default function Dashboard() {
                                 <Typography variant='h3' >
                                     {clients}
                                 </Typography>
+                                <br />
+                                <Typography>
+                                    <NorthRoundedIcon sx={{ color: 'blue' }} />
+                                    12% from last month
+                                </Typography>
                             </Box>
                             <CardMedia sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 2, }}>
                                 <Users />
@@ -174,6 +174,11 @@ export default function Dashboard() {
                                 </Typography>
                                 <Typography variant='h3' >
                                     {currentMonthlyAppointments}
+                                </Typography>
+                                <br />
+                                <Typography>
+                                    <NorthRoundedIcon sx={{ color: 'blue' }} />
+                                    12% from last month
                                 </Typography>
                             </Box>
                             <CardMedia sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 2, }}>
@@ -193,6 +198,11 @@ export default function Dashboard() {
                                 <Typography variant='h3' >
                                     ${deposits}
                                 </Typography>
+                                <br />
+                                <Typography>
+                                    <NorthRoundedIcon sx={{ color: 'blue' }} />
+                                    12% from last month
+                                </Typography>
                             </Box>
                             <CardMedia sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 2, }}>
                                 <DollarSign />
@@ -201,10 +211,11 @@ export default function Dashboard() {
                         <Typography variant="h5"></Typography>
                     </Card>
                 </Box>
+
             </Box>
 
 
-            <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginLeft: -35, }}>
                 <Box p={2}>
                     <Card sx={{ borderRadius: 10, display: 'flex', flexDirection: 'column', height: 600, width: 900 }} elevation={3}>
                         <CardContent sx={{ mt: 14 }}>
@@ -215,36 +226,84 @@ export default function Dashboard() {
                 <Box p={2} sx={{ flexGrow: 1 }}>
                     <Card sx={{ borderRadius: 10, display: 'flex', flexDirection: 'column', height: 600, width: 415 }} elevation={3}>
                         <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mt: 10 }}>
-                           <Typography variant='h5' gutterBottom>
-                            Faces Per Appointment
-                           </Typography>
-                           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                            <PieChart
-                                series={[
-                                    {
-                                        outerRadius: 150,
-                                        data: pieData,
-                                        arcLabel: getArcLabel,
-                                        legend: {positon: 'bottom'}
-                                    },
-                                ]}
-                                sx={{
-                                    [`& .${pieArcLabelClasses.root}`]: {
-                                        fill: 'white',
-                                        fontSize: 25,
-                                    },
-                                }}
-                                {...sizing}
-                            />
-                            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
-      {pieData.map((item, index) => (
-        <Box key={index} sx={{ display: 'flex', alignItems: 'center', marginRight: 2 }}>
-          <Box sx={{ width: 5, height: 10, backgroundColor: item.color, marginRight: 1 }} />
-          <Typography variant="body2">{item.label}</Typography>
-        </Box>
-      ))}
-    </Box>
-    </Box>
+                            <Typography variant='h5' gutterBottom>
+                                Faces Per Appointment
+                            </Typography>
+                            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <PieChart
+                                    series={[
+                                        {
+                                            outerRadius: 150,
+                                            data: pieData,
+                                            arcLabel: getArcLabel,
+                                            legend: { positon: 'bottom' }
+                                        },
+                                    ]}
+                                    sx={{
+                                        [`& .${pieArcLabelClasses.root}`]: {
+                                            fill: 'white',
+                                            fontSize: 25,
+                                        },
+                                    }}
+                                    {...sizing}
+                                />
+                                <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
+                                    {pieData.map((item, index) => (
+                                        <Box key={index} sx={{ display: 'flex', alignItems: 'center', marginRight: 2 }}>
+                                            <Box sx={{ width: 5, height: 10, backgroundColor: item.color, marginRight: 1 }} />
+                                            <Typography variant="body2">{item.label}</Typography>
+                                        </Box>
+                                    ))}
+                                </Box>
+                            </Box>
+                        </CardContent>
+                    </Card>
+                </Box>
+                <Box p={2}>
+                    <Card sx={{ borderRadius: 10, display: 'flex', flexDirection: 'column', width: 350, height: 830, marginTop: -29 }} elevation={3}>
+                        <CardContent sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                                
+                                <Gauge
+                                    value={75}
+                                    startAngle={-90}
+                                    endAngle={90}
+                                    height={300}
+                                    width={300}
+                                    sx={{
+                                        [`& .${gaugeClasses.valueText}`]: {
+                                            fontSize: 40,
+                                            transform: 'translate(0px, 0px)',
+                                        },
+                                        [`& .${gaugeClasses.valueArc}`]: {
+                                            fill: '#FFC0CB',
+                                          },
+                                    }}
+                                    text={
+                                        ({ value, valueMax }) => `${value} / ${valueMax}`
+                                    }
+                                />
+                                <br/>
+                                <Gauge
+                                    value={50}
+                                    startAngle={-90}
+                                    endAngle={90}
+                                    height={300}
+                                    width={300}
+                                    sx={{
+                                        [`& .${gaugeClasses.valueText}`]: {
+                                            fontSize: 40,
+                                            transform: 'translate(0px, 0px)',
+                                        },
+                                        [`& .${gaugeClasses.valueArc}`]: {
+                                            fill: '#FFC0CB',
+                                          },
+                                    }}
+                                    text={
+                                        ({ value, valueMax }) => `${value} / ${valueMax}`
+                                    }
+                                />
+                            </Box>
                         </CardContent>
                     </Card>
                 </Box>

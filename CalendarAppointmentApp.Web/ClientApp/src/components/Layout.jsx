@@ -18,8 +18,8 @@ const Layout = ({ children }) => {
                             <Button color="inherit" component={Link} to="/calendar">Calendar</Button> 
                             <Button color="inherit" component={Link} to="/appointments">Appointments</Button>
                             <Button color="inherit" component={Link} to="/clients">Clients</Button>
-                            <Button color="inherit" component={Link} to="/calculations">Calculations</Button>
-                            <Button color="inherit" component={Link} to="/dashboard">Dashboard</Button>                         
+                            <Button color="inherit" component={Link} to="/dashboard">Dashboard</Button>
+                            <Button color='inherit' component={Link} to="/records">Records</Button>                       
                         </Box>
                         <Box sx={{ flexBasis: '200px' }} />
                     </Toolbar>

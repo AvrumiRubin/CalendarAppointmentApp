@@ -35,8 +35,8 @@ namespace CalendarAppointmentApp.Data
             modelBuilder.Entity<Dashboard.TotalIncome>().HasNoKey();
             modelBuilder.Entity<Dashboard.TotalMonthlyAppointments>().HasNoKey();
             modelBuilder.Entity<Dashboard.GetCurrentMonthsAppointments>().HasNoKey();
-            modelBuilder.Entity<Dashboard.MonthlyDeposits>().HasNoKey();
             modelBuilder.Entity<Dashboard.MonthlyFacesPerAppointment>().HasNoKey();
+            modelBuilder.Entity<DashboardApi.MonthlyDeposits>().HasNoKey();
         }
     }
 }

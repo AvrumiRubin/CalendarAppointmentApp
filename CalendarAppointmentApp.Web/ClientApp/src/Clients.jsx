@@ -43,13 +43,14 @@ const Clients = () => {
     const handleDelete = async (id) => {
         await axios.post('/api/people/deleteperson', { id })
         await getClients();
-    }
-
-    const deleteClient = async (id) => {
-        await axios.post('/api/people/deleteperson', { id })
-        await getClients();
         handleClose();
     }
+
+    // const deleteClient = async (id) => {
+    //     await axios.post('/api/people/deleteperson', { id })
+    //     await getClients();
+    //     handleClose();
+    // }
 
 
     const handleAddClient = (client = '') => {
