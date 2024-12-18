@@ -19,7 +19,7 @@ namespace CalendarAppointmentApp.Data
         public decimal MonthlyAmount { get; set; }
     }
         
-        public class TotalIncome
+        public class TotalIncomeForYear
     {
         public decimal TotalAmount { get; set; }
     }

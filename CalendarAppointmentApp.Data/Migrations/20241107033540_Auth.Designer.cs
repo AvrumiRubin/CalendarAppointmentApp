@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CalendarAppointmentApp.Data.Migrations
 {
     [DbContext(typeof(AppointmentContext))]
-    [Migration("20240924164442_Types1")]
-    partial class Types1
+    [Migration("20241107033540_Auth")]
+    partial class Auth
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -80,9 +80,39 @@ namespace CalendarAppointmentApp.Data.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("People");
+                });
+
+            modelBuilder.Entity("CalendarAppointmentApp.Data.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("CalendarAppointmentApp.Data.Appointment", b =>
@@ -98,7 +128,19 @@ namespace CalendarAppointmentApp.Data.Migrations
 
             modelBuilder.Entity("CalendarAppointmentApp.Data.Person", b =>
                 {
+                    b.HasOne("CalendarAppointmentApp.Data.User", null)
+                        .WithMany("People")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("CalendarAppointmentApp.Data.Person", b =>
+                {
                     b.Navigation("Appointments");
+                });
+
+            modelBuilder.Entity("CalendarAppointmentApp.Data.User", b =>
+                {
+                    b.Navigation("People");
                 });
 #pragma warning restore 612, 618
         }

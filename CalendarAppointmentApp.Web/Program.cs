@@ -1,10 +1,12 @@
 
+using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Text.Json.Serialization;
 
 namespace CalendarAppointmentApp.Web
 {
     public class Program
     {
+        private static string CookieScheme = "Authentication";
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +20,23 @@ namespace CalendarAppointmentApp.Web
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
 
+            builder.Services.AddAuthentication(CookieScheme)
+          .AddCookie(CookieScheme, options =>
+          {
+              options.Events = new CookieAuthenticationEvents
+              {
+                  OnRedirectToLogin = context =>
+                  {
+                      context.Response.StatusCode = 403;
+                      context.Response.ContentType = "application/json";
+                      var result = System.Text.Json.JsonSerializer.Serialize(new { error = "You are not authenticated" });
+                      return context.Response.WriteAsync(result);
+                  }
+              };
+          });
+
+            builder.Services.AddSession();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -30,6 +49,10 @@ namespace CalendarAppointmentApp.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+
+            app.UseSession();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
 
             app.MapControllerRoute(

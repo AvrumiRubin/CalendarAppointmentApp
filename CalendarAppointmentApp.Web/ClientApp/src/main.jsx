@@ -6,33 +6,35 @@ import RoutePage from './RoutePage';
 import { createTheme, ThemeProvider, CssBaseline } from '@mui/material';
 
 const theme = createTheme({
-    palette: {
-      mode: 'light',
-      primary: {
-        main: '#5c6bc0', // Indigo
-      },
-      secondary: {
-        main: '#ff7043', // Deep Orange
-      },
-      background: {
-        default: '#fafafa', // Light grey
-        paper: '#ffffff', // White
-      },
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#5c6bc0', // Indigo
     },
-    typography: {
-      fontFamily: [
-        'Roboto',
-        '"Helvetica Neue"',
-        'Arial',
-        'sans-serif',
-      ].join(','),
+    secondary: {
+      main: '#ff7043', // Deep Orange
     },
-  });
-  
+    background: {
+      default: '#fafafa', // Light grey
+      paper: '#ffffff', // White
+    },
+  },
+  typography: {
+    fontFamily: [
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+    ].join(','),
+  },
+});
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+  <BrowserRouter>
     <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <RoutePage />   
+      <CssBaseline />
+      <RoutePage />
     </ThemeProvider>
+  </BrowserRouter>
 )

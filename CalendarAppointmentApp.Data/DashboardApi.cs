@@ -20,15 +20,15 @@ namespace CalendarAppointmentApp.Data
             public decimal Deposits { get; set; }
         }
 
-        public List<MonthlyDeposits> GetMonthlyDeposits()
+        public List<MonthlyDeposits> GetMonthlyDeposits(User user)
         {
             using var context = new AppointmentContext(_connectionString);
-            return context.Set<MonthlyDeposits>().FromSqlRaw("EXEC dbo.DepositsReceivedThisMonth").ToList();
+            return context.Set<MonthlyDeposits>().FromSqlRaw($"EXEC dbo.DepositsReceivedThisMonth @UserId = {user.Id}").ToList();
         }
 
-        public decimal GetTotalDeposits()
+        public decimal GetTotalDeposits(User user)
         {
-            var deposits = GetMonthlyDeposits();
+            var deposits = GetMonthlyDeposits(user);
             //decimal totalDeposit = 0;
             //for (int i = 0; i < deposits.Count; i++)
             //{

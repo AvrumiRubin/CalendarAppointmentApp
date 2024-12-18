@@ -18,16 +18,16 @@ namespace CalendarAppointmentApp.Data
         }
 
 
-        public List<Appointment> GetAppointments()
+        public List<Appointment> GetAppointments(User user)
         {
             using var context = new AppointmentContext(_connectionString);
-            return context.Appointments.Include(p => p.Person).ToList();
+            return context.Appointments.Include(p => p.Person).Where(p => p.Person.UserId == user.Id).ToList();
         } 
 
-        public List<Appointment> GetPastRecords()
+        public List<Appointment> GetPastRecords(User user)
         {
-            var appointments = GetAppointments();
-            List<Appointment> records = new List<Appointment>();
+            var appointments = GetAppointments(user);
+            List<Appointment> records = new();
             for(int i = 0; i < appointments.Count; i++)
             {
                 if(appointments[i].DateTime < DateTime.Now)
@@ -39,15 +39,15 @@ namespace CalendarAppointmentApp.Data
             return records;
         }
 
-        public void UpdateAppointment(Appointment appointment)
+        public void UpdateAppointment(Appointment appointment, User user)
         {
             using var context = new AppointmentContext(_connectionString);
-            var existingAppointment = context.Appointments.Find(appointment.Id);
+            var existingAppointment = context.Appointments.Include(a => a.Person).FirstOrDefault(a => a.Id == appointment.Id && a.Person.UserId == user.Id);
                 
 
             if (existingAppointment != null)
             {
-                if (appointment.Status != null)
+                if (appointment.Status != default)
                 {
                     existingAppointment.Status = appointment.Status;
                 }
@@ -55,9 +55,13 @@ namespace CalendarAppointmentApp.Data
                 {
                     existingAppointment.Amount = appointment.Amount;
                 }
-                if (appointment.PaymentType != null)
+                if (appointment.PaymentType != default)
                 {
                     existingAppointment.PaymentType = appointment.PaymentType;
+                }
+                else
+                {
+                    throw new UnauthorizedAccessException("You are not authorized to update this appointment.");
                 }
             }
             

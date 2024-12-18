@@ -24,19 +24,39 @@ namespace CalendarAppointmentApp.Data
 
         public DbSet<Person> People { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
-        public DbSet<Dashboard> Dashboards { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Dashboard.CalculatedMonthlyAmount> CalculatedMonthlyAmounts { get; set; }
+        public DbSet<Dashboard.TotalIncomeForYear> TotalIncomesForYear { get; set; }
+        public DbSet<Dashboard.TotalMonthlyAppointments> TotalMonthlyAppointments { get; set; }
+        public DbSet<Dashboard.GetCurrentMonthsAppointments> GetCurrentMonthsAppointments { get; set; }
+        public DbSet<Dashboard.MonthlyFacesPerAppointment> MonthlyFacesPerAppointments { get; set; }
+        public DbSet<DashboardApi.MonthlyDeposits> MonthlyDeposits { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Dashboard>().HasNoKey();
+            
             modelBuilder.Entity<Dashboard.CalculatedMonthlyAmount>().HasNoKey();
-            modelBuilder.Entity<Dashboard.TotalIncome>().HasNoKey();
+            modelBuilder.Entity<Dashboard.TotalIncomeForYear>().HasNoKey();
             modelBuilder.Entity<Dashboard.TotalMonthlyAppointments>().HasNoKey();
             modelBuilder.Entity<Dashboard.GetCurrentMonthsAppointments>().HasNoKey();
             modelBuilder.Entity<Dashboard.MonthlyFacesPerAppointment>().HasNoKey();
             modelBuilder.Entity<DashboardApi.MonthlyDeposits>().HasNoKey();
+        }
+
+        public async Task AddNewObjectAsync<T>(T newObject) where T : class
+        {
+            var entries = this.ChangeTracker.Entries()
+                .Where(e => e.Metadata.FindPrimaryKey() ==null).ToList();
+            foreach(var entry in entries)
+            {
+                entry.State = EntityState.Detached;
+            }
+
+            this.Add(newObject);
+            await this.SaveChangesAsync();
         }
     }
 }

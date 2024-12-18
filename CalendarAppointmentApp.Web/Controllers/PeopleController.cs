@@ -1,5 +1,5 @@
 ﻿using CalendarAppointmentApp.Data;
-using CalendarAppointmentApp.Web.Pages.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +7,7 @@ namespace CalendarAppointmentApp.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PeopleController : ControllerBase
     {
         private readonly string _connectionString;
@@ -20,32 +21,43 @@ namespace CalendarAppointmentApp.Web.Controllers
         [Route("addperson")]
         public void AddPerson(Person person)
         {
+            var user = GetCurrentUser();
             var repo = new PersonRepo(_connectionString);           
-            repo.AddPerson(person);
+            repo.AddPerson(person, user);
         }
 
         [HttpGet]
         [Route("getpeople")]
         public List<Person> GetPeople()
         {
+            var user = GetCurrentUser();
             var repo = new PersonRepo(_connectionString);
-            return repo.GetPeople();
+            return repo.GetPeople(user.Id);
         }
 
         [HttpPost]
         [Route("updateperson")]
-        public void UpdatePerson(UpdatePersonViewModel vm)
+        public void UpdatePerson(Person person)
         {
+            var user = GetCurrentUser();
             var repo = new PersonRepo(_connectionString);           
-            repo.UpdatePerson(vm.Id, vm.Name, vm.PhoneNumber);
+            repo.UpdatePerson(person, user.Id);
         }
 
         [HttpPost]
         [Route("deleteperson")]
-        public void DeletePerson(DeletePersonViewModel vm)
+        public void DeletePerson(Person person)
         {
+            var user = GetCurrentUser();
             var repo = new PersonRepo(_connectionString);
-            repo.DeletePerson(vm.Id);
+            repo.DeletePerson(person, user.Id);
+        }
+
+        private User GetCurrentUser()
+        {
+            var userRepo = new UserRepo(_connectionString);
+            var user = userRepo.GetByEmail(User.Identity.Name);
+            return user;
         }
 
     }

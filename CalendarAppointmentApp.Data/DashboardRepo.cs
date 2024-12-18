@@ -18,36 +18,36 @@ namespace CalendarAppointmentApp.Data
             _connectionString = connectionString;
         }
 
-        public List<Dashboard.CalculatedMonthlyAmount> GetMonthlyAmount()
+        public List<Dashboard.CalculatedMonthlyAmount> GetMonthlyAmount(int userId)
         {
             using var context = new AppointmentContext(_connectionString);
-            return context.Set<Dashboard.CalculatedMonthlyAmount>().FromSqlRaw("EXEC dbo.CalculateMonthlyAmount").ToList();
+            return context.Set<Dashboard.CalculatedMonthlyAmount>().FromSqlRaw($"EXEC dbo.CalculateMonthlyAmount @UserId = {userId}").ToList();
         }
 
-        public List<Dashboard.TotalIncome> GetTotalIncome()
+        public List<Dashboard.TotalIncomeForYear> GetTotalIncomeForYear(int userId)
         {
             using var context = new AppointmentContext(_connectionString);
-            return context.Set<Dashboard.TotalIncome>().FromSqlRaw("EXEC dbo.GetTotalIncomeforYear").ToList();
+            return context.Set<Dashboard.TotalIncomeForYear>().FromSqlRaw($"EXEC dbo.GetTotalIncomeForYear @UserId = {userId}").ToList();
         }
 
-        public int GetTotalClients()
+        public int GetTotalClients(int userId)
         {
             using var context = new AppointmentContext(_connectionString);
             //var result = context.Database.ExecuteSqlRaw("SELECT COUNT(*) FROM People");
             //return result;
-            return context.People.Count();
+            return context.People.Where(p => p.UserId == userId).Count();
         }
 
-        public List<Dashboard.TotalMonthlyAppointments> GetTotalMonthlyAppointments()
+        public List<Dashboard.TotalMonthlyAppointments> GetTotalMonthlyAppointments(int userId)
         {
             using var context = new AppointmentContext(_connectionString);
-            return context.Set<Dashboard.TotalMonthlyAppointments>().FromSqlRaw("EXEC dbo.GetMonthlyAppointmentCounts").ToList();
+            return context.Set<Dashboard.TotalMonthlyAppointments>().FromSqlRaw($"EXEC dbo.GetMonthlyAppointmentCounts @UserId = {userId}").ToList();
         }
 
-        public List<Dashboard.GetCurrentMonthsAppointments> GetCurrentMonthsAppointments()
+        public List<Dashboard.GetCurrentMonthsAppointments> GetCurrentMonthsAppointments(int userId)
         {
             using var context = new AppointmentContext(_connectionString);
-            return context.Set<Dashboard.GetCurrentMonthsAppointments>().FromSqlRaw("EXEC dbo.GetCurrentMonthlyAppointments").ToList();
+            return context.Set<Dashboard.GetCurrentMonthsAppointments>().FromSqlRaw($"EXEC dbo.GetCurrentMonthlyAppointments @UserId = {userId}").ToList();
         }
 
         //public List<Dashboard.MonthlyDeposits> GetMonthlyDeposits()
@@ -56,10 +56,10 @@ namespace CalendarAppointmentApp.Data
         //    return context.Set<Dashboard.MonthlyDeposits>().FromSqlRaw("EXEC dbo.DepositsReceivedThisMonth").ToList();
         //}
 
-        public List<Dashboard.MonthlyFacesPerAppointment> GetMonthlyFacesPerAppointments()
+        public List<Dashboard.MonthlyFacesPerAppointment> GetMonthlyFacesPerAppointments(int userId)
         {
             using var context = new AppointmentContext(_connectionString);
-            return context.Set<Dashboard.MonthlyFacesPerAppointment>().FromSqlRaw("EXEC dbo.MonthlyFacesPerAppointment").ToList();
+            return context.Set<Dashboard.MonthlyFacesPerAppointment>().FromSqlRaw($"EXEC dbo.MonthlyFacesPerAppointment @UserId = {userId}").ToList();
         }
     }
 }

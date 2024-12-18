@@ -17,6 +17,7 @@ const Appointments = () => {
     const [depositType, setDepositType] = useState('');
     const [faces, setFaces] = useState(0);
     const [amount, setAmount] = useState('');
+    const [dateTime, setDateTime] = useState('');
     const [deposit, setDeposit] = useState('');
     const [depositDate, setDepositDate] = useState('');
 
@@ -86,14 +87,14 @@ const Appointments = () => {
         setDeposit(appointment.deposit);
         setDepositDate(appointment.depositDate);
         setDepositType(appointment.depositType);
+        setDateTime(appointment.dateTime);
     }
 
     const update = async () => {
         await axios.post('/api/appointments/updateappointment', {
             personId: selectedAppointment.personId,
             id: selectedAppointment.id,
-            //name: selectedAppointment.name,
-            datetime: selectedAppointment.dateTime,
+            datetime: dateTime,
             faces: faces,
             amount: amount,
             deposit: deposit,
@@ -116,6 +117,8 @@ const Appointments = () => {
         setAmount('');
         setDeposit('');
         setDepositDate('');
+        setDateTime('');
+        setDateTime('');
     }
 
 
@@ -220,13 +223,13 @@ const Appointments = () => {
                                             <TableCell align="center" sx={{ fontSize: '18px' }}>${appointment.deposit}</TableCell>
                                             <TableCell align="center" sx={{ fontSize: '18px' }}>{dayjs(appointment.depositDate).format('dddd, MMM D, YYYY - h:mm a')}</TableCell>
                                             <TableCell align="center">
-                                        <Stack direction="column">
-                                            <Chip color={getChipColor(appointment.depositType)} sx={{ fontSize: '18px', margin: '0 25px' }} label={appointment.depositType}></Chip>
-                                        </Stack>
-                                    </TableCell>
+                                                <Stack direction="column">
+                                                    <Chip color={getChipColor(appointment.depositType)} sx={{ fontSize: '18px', margin: '0 25px' }} label={appointment.depositType}></Chip>
+                                                </Stack>
+                                            </TableCell>
                                             <TableCell align="center" sx={{ fontSize: '18px' }} >
                                                 <Button color="primary" variant="outlined" sx={{ margin: '0 5px' }} onClick={() => onEditClick(appointment)}>Edit</Button>
-                                                <br/> <br/>
+                                                <br /> <br />
                                                 <Button color="secondary" variant="outlined" sx={{ margin: '0 5px' }} onClick={() => onDeleteClick(appointment.id)}>Delete</Button>
                                             </TableCell>
                                         </TableRow>
@@ -238,10 +241,12 @@ const Appointments = () => {
                 ))
             )}
             <Dialog open={open} onClose={handleClose} fullWidth maxWidth='xl'>
-                <DialogTitle align="center" sx={{ fontSize: '25px' }} > {selectedAppointment.dateTime}
+                <DialogTitle align="center" sx={{ fontSize: '25px' }} > {dayjs(selectedAppointment.dateTime).format('dddd, MMM D, YYYY')} {dayjs(selectedAppointment.dateTime).format('h:mm a')}
                     <br />
                     Editing Appointment For {selectedAppointment.person?.name}</DialogTitle>
                 <DialogContent>
+                    <TextField autoFocus margin="dense" label='Date & Time' type="datetime-local" value={dateTime} onChange={(e) => setDateTime(e.target.value)}></TextField>
+                    <br /> <br />
                     <TextField autoFocus margin="dense" label='Faces' type="number" value={faces} onChange={(e) => setFaces(e.target.value)}></TextField>
                     <br /> <br />
                     <TextField autoFocus margin="dense" label='Amount' type="number" value={amount} onChange={(e) => setAmount(e.target.value)}></TextField>
